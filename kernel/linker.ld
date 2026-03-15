@@ -1,8 +1,8 @@
-ENTRY(kernel_main)
+ENTRY(start)
 
 SECTIONS
 {
-    . = 1M;
+    . = 0x1000;
 
     .text : {
         *(.text)
