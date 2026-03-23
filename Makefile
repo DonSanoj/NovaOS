@@ -25,14 +25,8 @@ $(BUILD_DIR)/entry.o: kernel/entry.asm | $(BUILD_DIR)
 $(BUILD_DIR)/kernel.o: kernel/kernel.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/vga.o: drivers/vga.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(BUILD_DIR)/screen.o: ui/screen.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(BUILD_DIR)/kernel.bin: $(BUILD_DIR)/entry.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/vga.o $(BUILD_DIR)/screen.o kernel/linker.ld
-	$(LD) $(LDFLAGS) -o $@ $(BUILD_DIR)/entry.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/vga.o $(BUILD_DIR)/screen.o --oformat binary
+$(BUILD_DIR)/kernel.bin: $(BUILD_DIR)/entry.o $(BUILD_DIR)/kernel.o kernel/linker.ld
+	$(LD) $(LDFLAGS) -o $@ $(BUILD_DIR)/entry.o $(BUILD_DIR)/kernel.o --oformat binary
 
 $(BUILD_DIR)/nova.img: $(BUILD_DIR)/boot.bin $(BUILD_DIR)/kernel.bin
 	dd if=/dev/zero of=$@ bs=512 count=2880
