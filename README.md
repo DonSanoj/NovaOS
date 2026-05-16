@@ -1,4 +1,4 @@
-# NovaOS
+# NovaOS 
 
 ## Build (MSYS2)
 
